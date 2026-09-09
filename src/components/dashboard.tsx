@@ -11,7 +11,7 @@ const periods = ["1日", "1周", "1月", "3月", "1年"];
 const periodPoints: Record<string, number> = { "1日": 2, "1周": 6, "1月": 23, "3月": 66, "1年": 370 };
 const categories: Array<"全部" | CommodityCategory> = ["全部", ...categoryInfos.map((item) => item.name)];
 
-export function Dashboard({ commodities, fedRate }: { commodities: Commodity[]; fedRate: FedRateProbability }) {
+export function Dashboard({ commodities, fedRate }: { commodities: Commodity[]; fedRate?: FedRateProbability }) {
   const [selectedId, setSelectedId] = useState("crude-oil");
   const [period, setPeriod] = useState("1月");
   const [query, setQuery] = useState("");
@@ -81,7 +81,7 @@ export function Dashboard({ commodities, fedRate }: { commodities: Commodity[]; 
           ))}
         </section>
 
-        <FedRateCard data={fedRate} />
+        {fedRate && <FedRateCard data={fedRate} />}
 
         <section id="market" className="grid gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(340px,0.7fr)]">
           <div className="min-w-0">
