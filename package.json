@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "data:update": "npm run data:update:commodities && npm run data:update:fed",
+    "data:check": "npm run data:check:commodities && npm run data:check:fed",
+    "data:update:commodities": "node scripts/update-commodity-data.mjs",
+    "data:update:fed": "node scripts/update-fed-probability.mjs",
+    "data:check:commodities": "node scripts/update-commodity-data.mjs --check",
+    "data:check:fed": "node scripts/update-fed-probability.mjs --check"
   },
   "dependencies": {
     "next": "16.3.4",

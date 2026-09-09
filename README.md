@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Commodity Tracker
+
+Next.js 大宗商品追踪网站。商品目录位于 `public/data/commodities.csv`，每个品种的最近一年日线位于 `public/data/commodities/{id}.csv`。
 
 ## Getting Started
 
@@ -15,6 +17,16 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Commodity data
+
+- `npm run data:update`：从新浪财经公开行情接口更新全部品种。
+- `npm run data:check`：检查每个 CSV 的字段、日期顺序、时效性和一年保留窗口。
+- GitHub Actions 每天自动执行更新；没有新行情时不会提交文件，也可在 Actions 页面手动触发。
+
+美联储概率保存在 `public/data/macro/fed-rate-probability.csv`，数据为金十公开页面转引的 CME FedWatch 报告。免费来源可能比 CME 付费实时 API 晚数日，页面始终显示报告日期和原文链接。
+
+煤炭使用大商所焦煤主力连续；汽油使用上期所燃料油主力作为成本代理，页面中会明确显示。
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

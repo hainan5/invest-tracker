@@ -1,0 +1,19 @@
+id,name,subtitle,symbol,category,unit,color,provider,provider_symbol,insight
+crude-oil,原油,NYMEX WTI 原油连续,WTI,能源商品,美元 / 桶,#315b47,sina-global,CL,地缘局势与主要产油国产量政策共同影响油价，短期关注库存变化。
+natural-gas,天然气,NYMEX 天然气连续,NG,能源商品,美元 / 百万英热,#4d7563,sina-global,NG,气温预期与库存水平主导价格，季节性需求使短期波动保持高位。
+thermal-coal,煤炭,大商所焦煤主力连续,JM,能源商品,人民币 / 吨,#3f554b,sina-domestic,JM0,动力煤连续合约已停止交易，当前采用焦煤主力连续反映煤炭市场变化。
+gasoline,汽油,上期所燃料油主力（汽油成本代理）,FU,能源商品,人民币 / 吨,#66806e,sina-domestic,FU0,暂无稳定的免费汽油日线源，采用燃料油主力连续作为炼化成本代理。
+gold,黄金,COMEX 黄金连续,GC,金属商品,美元 / 盎司,#b9872d,sina-global,GC,避险需求保持韧性，关注美元指数、实际利率与央行购金节奏。
+silver,白银,COMEX 白银连续,SI,金属商品,美元 / 盎司,#8a9294,sina-global,SI,贵金属属性与工业需求形成双重驱动，价格弹性通常高于黄金。
+copper,铜,LME 三个月期铜,CAD,金属商品,美元 / 吨,#ad6548,sina-global,CAD,全球制造业景气与矿端供应共同定价，库存变化是重要高频指标。
+aluminum,铝,LME 三个月期铝,AHD,金属商品,美元 / 吨,#879093,sina-global,AHD,能源成本和产能政策影响供给，建筑及交通需求决定价格空间。
+iron-ore,铁矿石,新加坡 62% 铁矿石连续,FEF,金属商品,美元 / 吨,#8b5f4b,sina-global,FEF,钢厂利润与高炉开工推动补库预期，港口库存仍是重要约束。
+zinc,锌,LME 三个月期锌,ZSD,金属商品,美元 / 吨,#737a75,sina-global,ZSD,冶炼端供应与镀锌需求变化共同影响价格，关注交易所库存。
+nickel,镍,LME 三个月期镍,NID,金属商品,美元 / 吨,#657975,sina-global,NID,印尼供应与新能源电池需求是中长期主线，过剩预期限制弹性。
+soybean,大豆,CBOT 黄豆连续,S,农副产品,美分 / 蒲式耳,#8a7541,sina-global,S,南北美天气与种植面积影响供给，压榨需求及出口节奏提供指引。
+corn,玉米,CBOT 玉米连续,C,农副产品,美分 / 蒲式耳,#b48b35,sina-global,C,生长季天气成为交易焦点，乙醇需求和库存影响价格区间。
+wheat,小麦,CBOT 小麦连续,W,农副产品,美分 / 蒲式耳,#a47b42,sina-global,W,黑海出口与主产区天气影响全球供给，价格对地缘风险较敏感。
+coffee,咖啡,ICE 阿拉比卡咖啡连续,KC,农副产品,美分 / 磅,#795744,sina-global,KC,巴西与越南产区天气主导供给预期，高价环境下关注需求变化。
+cotton,棉花,ICE 二号棉花连续,CT,农副产品,美分 / 磅,#8f8068,sina-global,CT,种植面积与天气决定产量，纺织订单和贸易流向影响消费预期。
+sugar,糖,ICE 十一号原糖连续,RS,农副产品,美分 / 磅,#9a7658,sina-global,RS,巴西压榨进度和印度出口政策影响供给，原油价格也会改变制糖比例。
+live-cattle,活牛,CME 活牛连续,LE,农副产品,美分 / 磅,#8c6049,sina-global,LE,存栏周期与饲料成本决定供给，消费需求和屠宰节奏影响短期价格。
