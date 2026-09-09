@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Commodity, CommodityCategory } from "@/lib/commodities";
 
-const validCategories = new Set<CommodityCategory>(["能源商品", "金属商品", "农副产品"]);
+const validCategories = new Set<CommodityCategory>(["能源商品", "金属商品", "化工商品", "农副产品"]);
 const catalogHeaders = ["id", "name", "subtitle", "symbol", "category", "unit", "color", "provider", "provider_symbol", "insight"];
 const priceHeaders = ["date", "open", "high", "low", "close", "volume"];
 
