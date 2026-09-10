@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { categoryInfos, formatPrice, type Commodity, type CommodityCategory } from "@/lib/commodities";
 import { MiniChart } from "@/components/mini-chart";
 import { FedRateCard } from "@/components/fed-rate-card";
-import { BellIcon, ChartIcon, GridIcon, MenuIcon, SearchIcon, StarIcon } from "@/components/icons";
+import { BellIcon, ChartIcon, MenuIcon, SearchIcon, StarIcon } from "@/components/icons";
 import type { FedRateProbability } from "@/lib/macro";
 
 const periods = ["1日", "1周", "1月", "3月", "1年"];
