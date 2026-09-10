@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `npm run data:check`：检查每个 CSV 的字段、日期顺序、时效性和一年保留窗口。
 - GitHub Actions 每天自动执行更新；没有新行情时不会提交文件，也可在 Actions 页面手动触发。
 
-美联储概率保存在 `public/data/macro/fed-rate-probability.csv`，数据为金十公开页面转引的 CME FedWatch 报告。免费来源可能比 CME 付费实时 API 晚数日，页面始终显示报告日期和原文链接。
+美联储概率保存在 `public/data/macro/fed-rate-probability.csv`。最新快照来自第三方基于 CME Fed Funds 期货和 FRED 利率区间的独立计算，金十公开页面用于补充历史记录。该数据并非 CME 官方付费 API，页面始终显示快照日期和来源链接。
 
 煤炭使用大商所焦煤主力连续；汽油使用上期所燃料油主力作为成本代理，页面中会明确显示。
 

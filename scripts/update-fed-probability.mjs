@@ -2,9 +2,12 @@ import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "
 import { dirname, join } from "node:path";
 
 const topicUrl = "https://xnews.jin10.com/topic/379";
+const liveUrl = "https://terminal.kryptomagazin.cz/en/macro/fedwatch?embed=1";
+const liveSourceUrl = "https://terminal.kryptomagazin.cz/en/macro/fedwatch";
 const outputPath = join(process.cwd(), "public", "data", "macro", "fed-rate-probability.csv");
 const headers = ["date", "meeting", "hike", "hold", "cut", "source_url"];
 const checkOnly = process.argv.includes("--check");
+const months = new Map(["Jan", 1, "Feb", 2, "Mar", 3, "Apr", 4, "May", 5, "Jun", 6, "Jul", 7, "Aug", 8, "Sep", 9, "Oct", 10, "Nov", 11, "Dec", 12].reduce((items, value, index, values) => index % 2 === 0 ? [...items, [value, values[index + 1]]] : items, []));
 
 function parseCsv(text) {
   const lines = text.trim().split(/\r?\n/);
@@ -53,6 +56,31 @@ function parseArticle(html, sourceUrl) {
   return { date, meeting: `${meetingYear}年${meetingLabel}`, hike, hold, cut, source_url: sourceUrl };
 }
 
+function parseLiveProbability(html) {
+  const payload = html.match(/asOf:"[^"]+"[\s\S]{0,30000}?meetingDate:"[^"]+"/)?.[0];
+  const asOf = payload?.match(/asOf:"([^"]+)"/)?.[1];
+  const meetingDate = payload?.match(/meetingDate:"([^"]+)"/)?.[1];
+  const hike = Number(payload?.match(/hike:([0-9.]+)/)?.[1]);
+  const hold = Number(payload?.match(/noChange:([0-9.]+)/)?.[1]);
+  const cut = Number(payload?.match(/ease:([0-9.]+)/)?.[1]);
+  const meetingParts = meetingDate?.match(/^(\d{1,2}) ([A-Z][a-z]{2}) (\d{4})$/);
+  const month = meetingParts ? months.get(meetingParts[2]) : undefined;
+  if (!asOf || !meetingParts || !month || ![hike, hold, cut].every(Number.isFinite)) {
+    throw new Error("实时 FedWatch 页面格式已变化");
+  }
+  const date = asOf.slice(0, 10);
+  const age = (Date.now() - Date.parse(`${date}T00:00:00Z`)) / 86_400_000;
+  if (age > 4 || age < -2) throw new Error(`实时 FedWatch 数据日期异常: ${date}`);
+  return {
+    date,
+    meeting: `${meetingParts[3]}年${month}月${Number(meetingParts[1])}日`,
+    hike,
+    hold,
+    cut,
+    source_url: liveSourceUrl,
+  };
+}
+
 function validate(rows) {
   if (rows.length < 2) throw new Error("美联储概率历史数据不足");
   const dates = new Set();
@@ -75,20 +103,32 @@ async function fetchText(url) {
 }
 
 async function update() {
-  const topic = await fetchText(topicUrl);
-  const links = [...new Set([...topic.matchAll(/https:\/\/xnews\.jin10\.com\/details\/flash\/[0-9]+/g)].map((match) => match[0]))];
-  if (links.length === 0) throw new Error("未找到美联储概率来源文章");
-  const fetched = (await Promise.all(links.map(async (url) => parseArticle(await fetchText(url), url)))).filter(Boolean);
-  const existing = existsSync(outputPath) ? parseCsv(readFileSync(outputPath, "utf8")) : [];
+  const live = parseLiveProbability(await fetchText(liveUrl));
+  let fetched = [];
+  try {
+    const topic = await fetchText(topicUrl);
+    const links = [...new Set([...topic.matchAll(/https:\/\/xnews\.jin10\.com\/details\/flash\/[0-9]+/g)].map((match) => match[0]))];
+    const results = await Promise.allSettled(links.map(async (url) => parseArticle(await fetchText(url), url)));
+    fetched = results.filter((result) => result.status === "fulfilled").map((result) => result.value).filter(Boolean);
+  } catch (error) {
+    console.warn(`金十历史补充失败，继续使用实时快照: ${error instanceof Error ? error.message : error}`);
+  }
+  const previousContent = existsSync(outputPath) ? readFileSync(outputPath, "utf8") : "";
+  const existing = previousContent ? parseCsv(previousContent) : [];
   const merged = new Map(existing.map((row) => [row.date, row]));
   for (const row of fetched) merged.set(row.date, row);
+  merged.set(live.date, live);
   const rows = [...merged.values()].filter((row) => row.date >= cutoffDate()).sort((a, b) => a.date.localeCompare(b.date));
   validate(rows);
   const content = `${headers.join(",")}\n${rows.map((row) => headers.map((header) => row[header]).join(",")).join("\n")}\n`;
+  if (content === previousContent) {
+    console.log(`美联储概率无新数据，最新快照为 ${live.date}。`);
+    return;
+  }
   mkdirSync(dirname(outputPath), { recursive: true });
   writeFileSync(`${outputPath}.tmp`, content, "utf8");
   renameSync(`${outputPath}.tmp`, outputPath);
-  console.log(`已更新 ${rows.length} 条美联储概率记录。`);
+  console.log(`已更新 ${rows.length} 条美联储概率记录，最新快照为 ${live.date}。`);
 }
 
 if (checkOnly) {

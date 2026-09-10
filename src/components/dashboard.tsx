@@ -143,11 +143,7 @@ export function Dashboard({ commodities, fedRate }: { commodities: Commodity[]; 
             </div>
           </aside>
         </section>
-
-        <section className="mt-8 rounded-2xl border border-[#ddd9ce] bg-[#faf9f5] p-5 sm:flex sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4"><span className="grid size-10 place-items-center rounded-full bg-[#eee9dc] text-[#9a7229]"><GridIcon className="size-4" /></span><div><h3 className="text-sm font-semibold">每品种独立 CSV</h3><p className="mt-1 text-xs text-[#858b87]">已加载 {commodities.length} 个品种最近一年的真实日线</p></div></div>
-          <code className="mt-4 block rounded-lg bg-[#eeeae0] px-3 py-2 text-[11px] text-[#536159] sm:mt-0">public/data/commodities/*.csv</code>
-        </section>
+        
         <p className="mt-5 text-center text-[11px] text-[#939893]">日线来源：新浪财经公开行情 · 更新至 {latestUpdate.replaceAll("-", "/")} · 不构成任何投资建议</p>
       </main>
     </div>
