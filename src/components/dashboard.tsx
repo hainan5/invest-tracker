@@ -21,6 +21,8 @@ export function Dashboard({ commodities, fedRate }: { commodities: Commodity[]; 
   const historyPointCount = periodPoints[period];
   const selectedHistory = selected.history.slice(-historyPointCount);
   const selectedHistoryDates = selected.historyDates.slice(-historyPointCount);
+  const periodStart = selectedHistory[0];
+  const periodChange = selectedHistory.length < 2 || !periodStart ? selected.change : Math.round(((selected.price - periodStart) / periodStart) * 10000) / 100;
   const latestUpdate = commodities.reduce((latest, item) => item.updatedAt > latest ? item.updatedAt : latest, "");
   const filtered = useMemo(() => commodities.filter((item) => {
     const matchesCategory = category === "全部" || item.category === category;
@@ -127,12 +129,13 @@ export function Dashboard({ commodities, fedRate }: { commodities: Commodity[]; 
             </div>
             <div className="mt-7 flex items-end justify-between">
               <div><p className="text-3xl font-semibold tabular-nums">{formatPrice(selected.price)}</p><p className="mt-1 text-xs text-[#9db6aa]">{selected.unit}</p></div>
-              <p className={`text-sm font-semibold ${selected.change >= 0 ? "text-[#86c49f]" : "text-[#e99b8d]"}`}>{selected.change >= 0 ? "↗" : "↘"} {Math.abs(selected.change)}%</p>
+              <p className={`text-sm font-semibold ${periodChange >= 0 ? "text-[#86c49f]" : "text-[#e99b8d]"}`}>{periodChange >= 0 ? "↗" : "↘"} {Math.abs(periodChange)}%</p>
             </div>
-            <div className="mt-8 h-56"><MiniChart data={selectedHistory} dates={selectedHistoryDates} color={selected.change >= 0 ? "#83c09c" : "#e18d7f"} id={`detail-${selected.id}`} detailed /></div>
+            <div className="mt-8 h-56"><MiniChart data={selectedHistory} dates={selectedHistoryDates} color={periodChange >= 0 ? "#83c09c" : "#e18d7f"} id={`detail-${selected.id}`} detailed /></div>
             <div className="mt-5 flex justify-between border-b border-white/15 pb-5">
               {periods.map((item) => <button key={item} onClick={() => setPeriod(item)} className={`rounded-md px-2.5 py-1.5 text-xs transition ${period === item ? "bg-white text-[#173f2e]" : "text-[#9db6aa] hover:text-white"}`}>{item}</button>)}
             </div>
+            <p className="mt-2 text-right text-[11px] text-[#9db6aa]">{period}涨跌幅</p>
             <div className="grid grid-cols-2 gap-x-8 gap-y-5 py-6">
               <Detail label="今开" value={formatPrice(selected.open)} /><Detail label="最高" value={formatPrice(selected.high)} />
               <Detail label="最低" value={formatPrice(selected.low)} /><Detail label="成交量" value={selected.volume} />
