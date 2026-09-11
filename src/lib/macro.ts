@@ -10,3 +10,15 @@ export type FedRateProbabilityPoint = {
 export type FedRateProbability = FedRateProbabilityPoint & {
   history: FedRateProbabilityPoint[];
 };
+
+export type MarginBalancePoint = {
+  date: string;
+  finBalance: number;
+  loanBalance: number;
+  marginBalance: number;
+  balanceRatio: number;
+};
+
+export type MarginBalance = MarginBalancePoint & {
+  history: MarginBalancePoint[];
+};
