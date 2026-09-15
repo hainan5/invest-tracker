@@ -6,13 +6,14 @@ import { MiniChart } from "@/components/mini-chart";
 import { FedRateCard } from "@/components/fed-rate-card";
 import { BellIcon, ChartIcon, MenuIcon, SearchIcon, StarIcon } from "@/components/icons";
 import { MarginBalanceCard } from "@/components/margin-balance-card";
-import type { FedRateProbability, MarginBalance } from "@/lib/macro";
+import { EconomicEventsCard } from "@/components/economic-events-card";
+import type { EconomicEventPoint, FedRateProbability, MarginBalance } from "@/lib/macro";
 
 const periods = ["1日", "1周", "1月", "3月", "1年"];
 const periodPoints: Record<string, number> = { "1日": 2, "1周": 6, "1月": 23, "3月": 66, "1年": 370 };
 const categories: Array<"全部" | CommodityCategory> = ["全部", ...categoryInfos.map((item) => item.name)];
 
-export function Dashboard({ commodities, fedRate, marginBalance }: { commodities: Commodity[]; fedRate?: FedRateProbability; marginBalance?: MarginBalance }) {
+export function Dashboard({ commodities, fedRate, marginBalance, economicEvents }: { commodities: Commodity[]; fedRate?: FedRateProbability; marginBalance?: MarginBalance; economicEvents?: EconomicEventPoint[] }) {
   const [selectedId, setSelectedId] = useState("crude-oil");
   const [period, setPeriod] = useState("1月");
   const [query, setQuery] = useState("");
@@ -88,6 +89,7 @@ export function Dashboard({ commodities, fedRate, marginBalance }: { commodities
 
         {fedRate && <FedRateCard data={fedRate} />}
         {marginBalance && <MarginBalanceCard data={marginBalance} />}
+        {economicEvents && economicEvents.length > 0 && <EconomicEventsCard events={economicEvents} />}
 
         <section id="market" className="grid gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(340px,0.7fr)]">
           <div className="min-w-0">

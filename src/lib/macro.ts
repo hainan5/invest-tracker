@@ -22,3 +22,13 @@ export type MarginBalancePoint = {
 export type MarginBalance = MarginBalancePoint & {
   history: MarginBalancePoint[];
 };
+
+export type EconomicEventPoint = {
+  date: string;
+  timeUtc: string;
+  currency: string;
+  impact: "High" | "Medium" | "Low" | "Holiday" | "Non-Economic";
+  title: string;
+  forecast: string;
+  previous: string;
+};
