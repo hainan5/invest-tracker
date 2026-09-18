@@ -68,9 +68,9 @@ date,time_utc,currency,impact,title,forecast,previous
 2026-09-17,02:30,JPY,High,BOJ Policy Rate,<1.25%,<1.00%
 2026-09-17,02:30,JPY,High,Monetary Policy Statement,,
 2026-09-17,07:00,CHF,Low,SECO Economic Forecasts,,
+2026-09-17,08:37,EUR,Low,Spanish 10-y Bond Auction,,3.74|2.3
 2026-09-17,09:00,EUR,Low,Final Core CPI y/y,2.4%,2.4%
 2026-09-17,09:00,EUR,Low,Final CPI y/y,3.3%,3.3%
-2026-09-17,09:03,EUR,Low,Spanish 10-y Bond Auction,,3.74|2.3
 2026-09-17,11:00,GBP,High,Monetary Policy Summary,,
 2026-09-17,11:00,GBP,High,MPC Official Bank Rate Votes,3-0-6,3-0-6
 2026-09-17,11:00,GBP,High,Official Bank Rate,3.75%,3.75%
@@ -86,7 +86,6 @@ date,time_utc,currency,impact,title,forecast,previous
 2026-09-17,14:30,USD,Low,Natural Gas Storage,49B,40B
 2026-09-17,22:45,NZD,Low,FPI m/m,,0.1%
 2026-09-17,22:45,NZD,Low,Trade Balance,-1775M,-1949M
-2026-09-17,23:01,GBP,Low,GfK Consumer Confidence,-16,-14
 2026-09-17,23:30,AUD,Medium,RBA Gov Bullock Speaks,,
 2026-09-17,23:30,JPY,Low,National Core CPI y/y,1.8%,1.8%
 2026-09-18,05:30,JPY,High,BOJ Press Conference,,
