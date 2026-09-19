@@ -39,7 +39,10 @@ export function EconomicEventsCard({ events }: { events: EconomicEventPoint[] })
       list.push(event);
       grouped.set(event.date, list);
     }
-    return [...grouped.entries()];
+    // 展示时间倒序：日期从新到旧，同一天内时间从晚到早（CSV 本身仍按时间升序存储）
+    return [...grouped.entries()]
+      .sort((a, b) => b[0].localeCompare(a[0]))
+      .map(([date, dayEvents]): [string, EconomicEventPoint[]] => [date, [...dayEvents].reverse()]);
   }, [events, impactFilter]);
 
   const highCount = events.filter((event) => event.impact === "High").length;
