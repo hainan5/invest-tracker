@@ -65,8 +65,8 @@ date,time_utc,currency,impact,title,forecast,previous
 2026-09-16,18:30,USD,High,FOMC Press Conference,,
 2026-09-16,20:00,USD,Low,TIC Long-Term Purchases,146.3B,172.7B
 2026-09-16,22:45,NZD,High,GDP q/q,0.1%,0.8%
-2026-09-17,02:30,JPY,High,BOJ Policy Rate,<1.25%,<1.00%
-2026-09-17,02:30,JPY,High,Monetary Policy Statement,,
+2026-09-17,02:54,JPY,High,BOJ Policy Rate,<1.25%,<1.00%
+2026-09-17,02:54,JPY,High,Monetary Policy Statement,,
 2026-09-17,07:00,CHF,Low,SECO Economic Forecasts,,
 2026-09-17,08:37,EUR,Low,Spanish 10-y Bond Auction,,3.74|2.3
 2026-09-17,09:00,EUR,Low,Final Core CPI y/y,2.4%,2.4%
@@ -76,6 +76,7 @@ date,time_utc,currency,impact,title,forecast,previous
 2026-09-17,11:00,GBP,High,Official Bank Rate,3.75%,3.75%
 2026-09-17,12:30,CAD,Low,Foreign Securities Purchases,28.64B,40.83B
 2026-09-17,12:30,CAD,Low,IPPI m/m,0.0%,0.6%
+2026-09-17,12:30,CAD,Low,NHPI m/m,,-0.1%
 2026-09-17,12:30,CAD,Low,RMPI m/m,0.7%,-2.2%
 2026-09-17,12:30,USD,Medium,Philly Fed Manufacturing Index,31.3,47.4
 2026-09-17,12:30,USD,Medium,Unemployment Claims,207K,206K
@@ -88,11 +89,11 @@ date,time_utc,currency,impact,title,forecast,previous
 2026-09-17,22:45,NZD,Low,Trade Balance,-1775M,-1949M
 2026-09-17,23:30,AUD,Medium,RBA Gov Bullock Speaks,,
 2026-09-17,23:30,JPY,Low,National Core CPI y/y,1.8%,1.8%
-2026-09-18,05:30,JPY,High,BOJ Press Conference,,
 2026-09-18,06:00,EUR,Low,German PPI m/m,0.6%,1.1%
 2026-09-18,06:00,GBP,Medium,Retail Sales m/m,-0.2%,-0.5%
-2026-09-18,06:02,CNY,Low,Foreign Direct Investment ytd/y,,-6.2%
+2026-09-18,06:30,JPY,High,BOJ Press Conference,,
 2026-09-18,08:00,EUR,Low,Current Account,30.7B,35.1B
+2026-09-18,09:02,CNY,Low,Foreign Direct Investment ytd/y,,-6.2%
 2026-09-18,10:15,EUR,Low,ECOFIN Meetings,,
 2026-09-18,10:15,EUR,Low,Eurogroup Meetings,,
 2026-09-18,10:30,EUR,Medium,ECB President Lagarde Speaks,,
