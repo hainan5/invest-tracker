@@ -25,9 +25,7 @@ export type MarginBalance = MarginBalancePoint & {
 
 export type EconomicEventPoint = {
   date: string;
-  timeBeijing: string;
-  city: string;
-  eventType: string;
-  impact: "高" | "中" | "低";
+  category: "新股申购" | "限售解禁" | "分红除权" | "宏观数据";
   title: string;
+  detail: string;
 };
