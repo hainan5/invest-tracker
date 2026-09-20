@@ -7,7 +7,7 @@ import { join } from "node:path";
 const apiBase = "https://datacenter-web.eastmoney.com/api/data/v1/get";
 const outputPath = join(process.cwd(), "public", "data", "macro", "economic-events.csv");
 const headers = ["date", "category", "title", "detail"];
-const maxAgeDays = 10;
+const maxAgeDays = 15; // 放宽以容忍春节/国庆等长假期窗口内无新事件
 // 对 A 股有明确指引意义的国内宏观指标
 const macroKeepPatterns = [
   /LPR|贷款市场报价利率/i, /社会融资规模/, /^中国[:：]?M[012]/, /工业增加值/, /社会消费品零售/,
@@ -49,7 +49,7 @@ function parseCsv(text) {
 }
 
 function validate(rows) {
-  if (rows.length < 2) throw new Error("A股日历数据不足");
+  if (rows.length === 0) throw new Error("A股日历数据为空");
   for (let index = 0; index < rows.length; index += 1) {
     const row = rows[index];
     if (!/^\d{4}-\d{2}-\d{2}$/.test(row.date)) throw new Error(`A股日历 CSV 第 ${index + 2} 行日期格式不正确`);
@@ -82,8 +82,9 @@ function ymd(raw) {
 
 function dateRange() {
   const nowBeijing = Date.now() + 8 * 3600_000;
-  const start = new Date(nowBeijing - 2 * 86_400_000).toISOString().slice(0, 10);
-  const end = new Date(nowBeijing + 7 * 86_400_000).toISOString().slice(0, 10);
+  // 最近三天：今天至后天（含当天，覆盖盘后披露的次日安排）
+  const start = new Date(nowBeijing).toISOString().slice(0, 10);
+  const end = new Date(nowBeijing + 2 * 86_400_000).toISOString().slice(0, 10);
   return { start, end };
 }
 
@@ -147,7 +148,14 @@ async function fetchMacro({ start, end }) {
 async function update() {
   const range = dateRange();
   const rows = (await Promise.all([fetchIpo(range), fetchLift(range), fetchDividend(range), fetchMacro(range)])).flat();
-  if (rows.length < 2) throw new Error("A股日历数据不足");
+  // 长假期窗口内可能没有任何事件；此时保留旧文件而不是覆盖为空
+  if (rows.length === 0) {
+    if (existsSync(outputPath)) {
+      console.log("最近三天无A股日历事件（可能为休市假期），保留现有数据。");
+      return;
+    }
+    throw new Error("A股日历数据不足且无历史文件");
+  }
   rows.sort((a, b) => a.date.localeCompare(b.date));
   validate(rows);
   const content = `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvField(row[header])).join(",")).join("\n")}\n`;
