@@ -1,105 +1,22 @@
-date,time_utc,currency,impact,title,forecast,previous
-2026-09-13,02:30,AUD,Low,RBA Assist Gov Hunter Speaks,,
-2026-09-13,22:30,NZD,Low,BusinessNZ Services Index,,50.6
-2026-09-13,22:45,NZD,Low,Visitor Arrivals m/m,,-0.1%
-2026-09-14,01:30,CNY,Low,New Home Prices m/m,,-0.18%
-2026-09-14,02:00,CNY,Low,Fixed Asset Investment ytd/y,-7.1%,-6.7%
-2026-09-14,02:00,CNY,Low,Industrial Production y/y,4.8%,4.5%
-2026-09-14,02:00,CNY,Low,NBS Press Conference,,
-2026-09-14,02:00,CNY,Low,Retail Sales y/y,0.7%,0.6%
-2026-09-14,02:00,CNY,Low,Unemployment Rate,5.2%,5.2%
-2026-09-14,04:30,JPY,Low,Revised Industrial Production m/m,0.1%,0.1%
-2026-09-14,06:30,CHF,Low,PPI m/m,0.0%,-0.1%
-2026-09-14,09:01,CNY,Low,M2 Money Supply y/y,7.6%,7.7%
-2026-09-14,09:01,CNY,Low,New Loans,480B,-340B
-2026-09-14,12:30,CAD,High,CPI m/m,-0.1%,0.5%
-2026-09-14,12:30,CAD,High,Median CPI y/y,2.0%,2.0%
-2026-09-14,12:30,CAD,High,Trimmed CPI y/y,1.9%,1.9%
-2026-09-14,12:30,CAD,Medium,Common CPI y/y,2.7%,2.7%
-2026-09-14,12:30,CAD,Low,Core CPI m/m,0.2%,0.2%
-2026-09-14,12:30,CAD,Low,Manufacturing Sales m/m,-0.2%,0.1%
-2026-09-14,13:30,GBP,Low,CB Leading Index m/m,,-0.4%
-2026-09-14,15:15,EUR,Medium,ECB President Lagarde Speaks,,
-2026-09-15,00:30,AUD,Low,MI Leading Index m/m,,0.0%
-2026-09-15,04:30,JPY,Low,Tertiary Industry Activity m/m,0.3%,-0.2%
-2026-09-15,06:00,EUR,Low,German WPI m/m,0.1%,0.2%
-2026-09-15,06:00,GBP,High,Claimant Count Change,8.3K,-11.0K
-2026-09-15,06:00,GBP,Medium,Average Earnings Index 3m/y,3.9%,4.1%
-2026-09-15,06:00,GBP,Low,Unemployment Rate,5.0%,4.9%
-2026-09-15,06:45,EUR,Low,French Final CPI m/m,0.7%,0.7%
-2026-09-15,08:00,EUR,Low,Italian Trade Balance,4.77B,4.23B
-2026-09-15,09:00,EUR,Low,Trade Balance,3.7B,1.8B
-2026-09-15,09:00,EUR,Low,German ZEW Economic Sentiment,39.8,34.2
-2026-09-15,09:00,EUR,Low,ZEW Economic Sentiment,39.2,31.4
-2026-09-15,12:15,USD,Low,ADP Weekly Employment Change,,12.0K
-2026-09-15,12:30,CAD,Low,Wholesale Sales m/m,-0.5%,2.8%
-2026-09-15,12:30,USD,Low,Empire State Manufacturing Index,14.8,20.6
-2026-09-15,14:00,USD,Medium,Treasury Sec Bessent Speaks,,
-2026-09-15,15:39,NZD,Low,GDT Price Index,,0.9%
-2026-09-15,20:30,USD,Low,API Weekly Statistical Bulletin,,
-2026-09-15,21:04,NZD,Low,Westpac Consumer Sentiment,,80.4
-2026-09-15,22:45,NZD,Low,Current Account,-2.57B,-1.01B
-2026-09-15,23:50,JPY,Low,Core Machinery Orders m/m,-1.2%,9.7%
-2026-09-15,23:50,JPY,Low,Trade Balance,-1.00T,-0.69T
-2026-09-16,06:00,GBP,High,CPI y/y,3.1%,2.9%
-2026-09-16,06:00,GBP,Low,Core CPI y/y,2.6%,2.6%
-2026-09-16,06:00,GBP,Low,PPI Input m/m,0.6%,-1.7%
-2026-09-16,06:00,GBP,Low,PPI Output m/m,0.5%,0.2%
-2026-09-16,06:00,GBP,Low,RPI y/y,3.5%,3.2%
-2026-09-16,08:30,GBP,Low,HPI y/y,2.1%,2.0%
-2026-09-16,09:00,EUR,Low,Industrial Production m/m,-0.2%,0.0%
-2026-09-16,09:35,EUR,Low,German 30-y Bond Auction,,3.65|1.3
-2026-09-16,12:15,CAD,Low,Housing Starts,243K,229K
-2026-09-16,12:30,CAD,Low,Building Permits m/m,-4.7%,18.5%
-2026-09-16,12:30,USD,Medium,Core Retail Sales m/m,0.6%,-0.3%
-2026-09-16,12:30,USD,Medium,Retail Sales m/m,0.8%,-0.6%
-2026-09-16,12:30,USD,Low,Import Prices m/m,0.4%,-0.4%
-2026-09-16,14:00,USD,Low,Business Inventories m/m,0.6%,0.0%
-2026-09-16,14:00,USD,Low,NAHB Housing Market Index,34,35
-2026-09-16,14:30,USD,Low,Crude Oil Inventories,-1.6M,-0.4M
-2026-09-16,16:00,EUR,Low,German Buba President Nagel Speaks,,
-2026-09-16,17:30,CAD,Low,BOC Summary of Deliberations,,
-2026-09-16,18:00,USD,High,Federal Funds Rate,4.00%,3.75%
-2026-09-16,18:00,USD,High,FOMC Economic Projections,,
-2026-09-16,18:00,USD,High,FOMC Statement,,
-2026-09-16,18:30,USD,High,FOMC Press Conference,,
-2026-09-16,20:00,USD,Low,TIC Long-Term Purchases,146.3B,172.7B
-2026-09-16,22:45,NZD,High,GDP q/q,0.1%,0.8%
-2026-09-17,02:54,JPY,High,BOJ Policy Rate,<1.25%,<1.00%
-2026-09-17,02:54,JPY,High,Monetary Policy Statement,,
-2026-09-17,07:00,CHF,Low,SECO Economic Forecasts,,
-2026-09-17,08:37,EUR,Low,Spanish 10-y Bond Auction,,3.74|2.3
-2026-09-17,09:00,EUR,Low,Final Core CPI y/y,2.4%,2.4%
-2026-09-17,09:00,EUR,Low,Final CPI y/y,3.3%,3.3%
-2026-09-17,11:00,GBP,High,Monetary Policy Summary,,
-2026-09-17,11:00,GBP,High,MPC Official Bank Rate Votes,3-0-6,3-0-6
-2026-09-17,11:00,GBP,High,Official Bank Rate,3.75%,3.75%
-2026-09-17,12:30,CAD,Low,Foreign Securities Purchases,28.64B,40.83B
-2026-09-17,12:30,CAD,Low,IPPI m/m,0.0%,0.6%
-2026-09-17,12:30,CAD,Low,NHPI m/m,,-0.1%
-2026-09-17,12:30,CAD,Low,RMPI m/m,0.7%,-2.2%
-2026-09-17,12:30,USD,Medium,Philly Fed Manufacturing Index,31.3,47.4
-2026-09-17,12:30,USD,Medium,Unemployment Claims,207K,206K
-2026-09-17,12:30,USD,Low,Building Permits,1.40M,1.44M
-2026-09-17,12:30,USD,Low,Housing Starts,1.32M,1.24M
-2026-09-17,14:00,USD,Low,Pending Home Sales m/m,-0.2%,-2.3%
-2026-09-17,14:30,AUD,Low,CB Leading Index m/m,,0.3%
-2026-09-17,14:30,USD,Low,Natural Gas Storage,49B,40B
-2026-09-17,22:45,NZD,Low,FPI m/m,,0.1%
-2026-09-17,22:45,NZD,Low,Trade Balance,-1775M,-1949M
-2026-09-17,23:30,AUD,Medium,RBA Gov Bullock Speaks,,
-2026-09-17,23:30,JPY,Low,National Core CPI y/y,1.8%,1.8%
-2026-09-18,06:00,EUR,Low,German PPI m/m,0.6%,1.1%
-2026-09-18,06:00,GBP,Medium,Retail Sales m/m,-0.2%,-0.5%
-2026-09-18,06:30,JPY,High,BOJ Press Conference,,
-2026-09-18,08:00,EUR,Low,Current Account,30.7B,35.1B
-2026-09-18,09:02,CNY,Low,Foreign Direct Investment ytd/y,,-6.2%
-2026-09-18,10:15,EUR,Low,ECOFIN Meetings,,
-2026-09-18,10:15,EUR,Low,Eurogroup Meetings,,
-2026-09-18,10:30,EUR,Medium,ECB President Lagarde Speaks,,
-2026-09-18,13:15,USD,Low,Capacity Utilization Rate,76.4%,76.3%
-2026-09-18,13:15,USD,Low,Industrial Production m/m,0.3%,0.2%
-2026-09-18,13:30,USD,Low,FOMC Member Bowman Speaks,,
-2026-09-18,14:00,USD,Low,CB Leading Index m/m,0.1%,0.2%
-2026-09-18,15:45,USD,Low,FOMC Member Schmid Speaks,,
-2026-09-19,10:15,EUR,Low,ECOFIN Meetings,,
+date,time_beijing,city,event_type,impact,title
+2026-09-11,00:00,广州市,其他会议,低,2026广东金秋文旅消费季暨文旅产业招商推介会
+2026-09-17,00:00,大连市,行业会议,低,2026年第十届全国水下机器人大赛
+2026-09-17,00:00,南宁市,行业会议,低,第23届中国东盟博览会
+2026-09-21,00:00,上海市,行业会议,低,2026第二届上海AI应用生态大会
+2026-09-21,09:00,中国,经济数据,高,中国：贷款市场报价利率(LPR):5年(报告期:2026年09月)
+2026-09-21,09:00,中国,经济数据,高,中国：贷款市场报价利率(LPR):1年(报告期:2026年09月)
+2026-09-22,00:00,广州市,行业会议,低,ADEX2026第六届阿塞拜疆(巴库)国际防务展
+2026-09-22,00:00,上海市,行业会议,低,第48届世界技能大赛
+2026-09-23,16:30,中国香港,经济数据,高,中国香港：香港:CPI:综合类(报告期:2026年08月)
+2026-09-23,16:30,中国香港,经济数据,高,中国香港：香港:CPI:综合类:当月同比(报告期:2026年08月)
+2026-09-24,00:00,中国,经济数据,中,中国：库存:电解铝:保税区(报告期:2026年09月)
+2026-09-24,16:30,中国香港,经济数据,中,中国香港：香港:进口货值:当月同比(报告期:2026年08月)
+2026-09-24,16:30,中国香港,经济数据,中,中国香港：香港:整体出口货值:当月同比(报告期:2026年08月)
+2026-09-24,16:30,中国香港,经济数据,中,中国香港：香港:商品贸易差额:当月值(报告期:2026年08月)
+2026-09-25,00:00,中国澳门,经济数据,高,中国澳门：澳门:CPI:综合:同比(报告期:2026年08月)
+2026-09-25,00:00,中国澳门,经济数据,中,中国澳门：澳门:失业率(报告期:2026年08月)
+2026-09-25,00:00,中国,经济数据,中,中国：库存:块矿:46港(报告期:2026年09月)
+2026-09-25,00:00,中国,经济数据,中,中国：库存:精粉:46港(报告期:2026年09月)
+2026-09-25,00:00,中国,经济数据,中,中国：库存:球团:46港(报告期:2026年09月)
+2026-09-25,00:00,中国,经济数据,中,中国：库存:铁矿石:46港(报告期:2026年09月)
+2026-09-25,00:00,中国,经济数据,中,中国：库存:贸易矿:46港(报告期:2026年09月)

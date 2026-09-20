@@ -25,10 +25,9 @@ export type MarginBalance = MarginBalancePoint & {
 
 export type EconomicEventPoint = {
   date: string;
-  timeUtc: string;
-  currency: string;
-  impact: "High" | "Medium" | "Low" | "Holiday" | "Non-Economic";
+  timeBeijing: string;
+  city: string;
+  eventType: string;
+  impact: "高" | "中" | "低";
   title: string;
-  forecast: string;
-  previous: string;
 };

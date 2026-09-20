@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { EconomicEventPoint } from "@/lib/macro";
 
-const headers = ["date", "time_utc", "currency", "impact", "title", "forecast", "previous"];
-const validImpacts = new Set(["High", "Medium", "Low", "Holiday", "Non-Economic"]);
+const headers = ["date", "time_beijing", "city", "event_type", "impact", "title"];
+const validImpacts = new Set(["高", "中", "低"]);
 
 function parseCsvLine(line: string) {
   const fields: string[] = [];
@@ -31,15 +31,15 @@ export function loadEconomicEvents(): EconomicEventPoint[] {
   const events = lines.slice(1).filter(Boolean).map((line, index): EconomicEventPoint => {
     const values = parseCsvLine(line);
     if (values.length !== headers.length) throw new Error(`财经事件 CSV 第 ${index + 2} 行字段数量不正确`);
-    const [date, timeUtc, currency, impact, title, forecast, previous] = values;
+    const [date, timeBeijing, city, eventType, impact, title] = values;
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error(`财经事件 CSV 第 ${index + 2} 行日期无效`);
-    if (!/^\d{2}:\d{2}$/.test(timeUtc)) throw new Error(`财经事件 CSV 第 ${index + 2} 行时间无效`);
+    if (!/^\d{2}:\d{2}$/.test(timeBeijing)) throw new Error(`财经事件 CSV 第 ${index + 2} 行时间无效`);
     if (!validImpacts.has(impact)) throw new Error(`财经事件 CSV 第 ${index + 2} 行影响等级无效`);
     if (!title) throw new Error(`财经事件 CSV 第 ${index + 2} 行标题为空`);
-    return { date, timeUtc, currency, impact: impact as EconomicEventPoint["impact"], title, forecast, previous };
+    return { date, timeBeijing, city, eventType, impact: impact as EconomicEventPoint["impact"], title };
   });
   if (events.length < 2) throw new Error("财经事件数据不足");
-  const ordered = events.every((event, index) => index === 0 || `${event.date} ${event.timeUtc}` >= `${events[index - 1].date} ${events[index - 1].timeUtc}`);
+  const ordered = events.every((event, index) => index === 0 || `${event.date} ${event.timeBeijing}` >= `${events[index - 1].date} ${events[index - 1].timeBeijing}`);
   if (!ordered) throw new Error("财经事件 CSV 未按时间升序排列");
   return events;
 }
