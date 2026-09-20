@@ -29,3 +29,9 @@ export type EconomicEventPoint = {
   title: string;
   detail: string;
 };
+
+export type MorningBriefPoint = {
+  date: string;
+  section: "要闻" | "关注";
+  content: string;
+};

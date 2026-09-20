@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { EconomicEventPoint } from "@/lib/macro";
+import type { EconomicEventPoint, MorningBriefPoint } from "@/lib/macro";
 
 const headers = ["date", "category", "title", "detail"];
 const validCategories = new Set(["新股申购", "限售解禁", "分红除权", "宏观数据"]);
@@ -41,4 +41,24 @@ export function loadEconomicEvents(): EconomicEventPoint[] {
   const ordered = events.every((event, index) => index === 0 || event.date >= events[index - 1].date);
   if (!ordered) throw new Error("A股日历 CSV 未按日期升序排列");
   return events;
+}
+
+const newsHeaders = ["date", "section", "content"];
+const validSections = new Set(["要闻", "关注"]);
+
+export function loadMorningBrief(): MorningBriefPoint[] {
+  const filePath = join(process.cwd(), "public", "data", "macro", "morning-brief.csv");
+  const lines = readFileSync(filePath, "utf8").replace(/^\uFEFF/, "").trim().split(/\r?\n/);
+  if (parseCsvLine(lines[0]).join(",") !== newsHeaders.join(",")) throw new Error("金十早餐 CSV 表头不正确");
+  const briefs = lines.slice(1).filter(Boolean).map((line, index): MorningBriefPoint => {
+    const values = parseCsvLine(line);
+    if (values.length !== newsHeaders.length) throw new Error(`金十早餐 CSV 第 ${index + 2} 行字段数量不正确`);
+    const [date, section, content] = values;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error(`金十早餐 CSV 第 ${index + 2} 行日期无效`);
+    if (!validSections.has(section)) throw new Error(`金十早餐 CSV 第 ${index + 2} 行栏目无效`);
+    if (!content) throw new Error(`金十早餐 CSV 第 ${index + 2} 行内容为空`);
+    return { date, section: section as MorningBriefPoint["section"], content };
+  });
+  if (briefs.length === 0) throw new Error("金十早餐数据不足");
+  return briefs;
 }
