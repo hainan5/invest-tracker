@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { categoryInfos, formatPrice, type Commodity, type CommodityCategory } from "@/lib/commodities";
 import { MiniChart } from "@/components/mini-chart";
 import { FedRateCard } from "@/components/fed-rate-card";
-import { BellIcon, ChartIcon, MenuIcon, SearchIcon, StarIcon } from "@/components/icons";
+import { ChartIcon, SearchIcon, StarIcon } from "@/components/icons";
 import { MarginBalanceCard } from "@/components/margin-balance-card";
 import { EconomicEventsCard } from "@/components/economic-events-card";
 import type { EconomicEventPoint, FedRateProbability, MarginBalance } from "@/lib/macro";
@@ -12,13 +12,32 @@ import type { EconomicEventPoint, FedRateProbability, MarginBalance } from "@/li
 const periods = ["1日", "1周", "1月", "3月", "1年"];
 const periodPoints: Record<string, number> = { "1日": 2, "1周": 6, "1月": 23, "3月": 66, "1年": 370 };
 const categories: Array<"全部" | CommodityCategory> = ["全部", ...categoryInfos.map((item) => item.name)];
+const FAVORITES_KEY = "tracker-favorites";
+
+// 北京时间周六日为休市日。客户端组件内仅初次挂载计算一次，不在渲染中重复调用时钟
+function closedDay() {
+  const weekday = new Date(Date.now() + 8 * 3600_000).getUTCDay();
+  return weekday === 0 || weekday === 6;
+}
+
+function storedFavorites(): string[] | null {
+  try {
+    const stored = window.localStorage.getItem(FAVORITES_KEY);
+    if (!stored) return null;
+    const parsed: unknown = JSON.parse(stored);
+    return Array.isArray(parsed) ? parsed.filter((id): id is string => typeof id === "string") : null;
+  } catch {
+    return null;
+  }
+}
 
 export function Dashboard({ commodities, fedRate, marginBalance, economicEvents }: { commodities: Commodity[]; fedRate?: FedRateProbability; marginBalance?: MarginBalance; economicEvents?: EconomicEventPoint[] }) {
   const [selectedId, setSelectedId] = useState("crude-oil");
   const [period, setPeriod] = useState("1月");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"全部" | CommodityCategory>("全部");
-  const [favorites, setFavorites] = useState(["gold", "crude-oil"]);
+  const [favorites, setFavorites] = useState<string[]>(() => storedFavorites() ?? ["gold", "crude-oil"]);
+  const searchRef = useRef<HTMLInputElement>(null);
   const selected = commodities.find((item) => item.id === selectedId) ?? commodities[0];
   const historyPointCount = periodPoints[period];
   const selectedHistory = selected.history.slice(-historyPointCount);
@@ -26,6 +45,23 @@ export function Dashboard({ commodities, fedRate, marginBalance, economicEvents 
   const periodStart = selectedHistory[0];
   const periodChange = selectedHistory.length < 2 || !periodStart ? selected.change : Math.round(((selected.price - periodStart) / periodStart) * 10000) / 100;
   const latestUpdate = commodities.reduce((latest, item) => item.updatedAt > latest ? item.updatedAt : latest, "");
+  const isClosedDay = useMemo(() => closedDay(), []);
+
+  // 自选关注持久化：每次变更写入 localStorage（初始值已在 useState 惰性读取）
+  useEffect(() => {
+    try { window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)); } catch { /* 忽略写入失败 */ }
+  }, [favorites]);
+  // Cmd/Ctrl + K 聚焦搜索框
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
   const filtered = useMemo(() => commodities.filter((item) => {
     const matchesCategory = category === "全部" || item.category === category;
     const matchesQuery = `${item.name}${item.symbol}${item.subtitle}`.toLowerCase().includes(query.toLowerCase());
@@ -52,10 +88,10 @@ export function Dashboard({ commodities, fedRate, marginBalance, economicEvents 
             </nav>
           </div>
           <div className="flex items-center gap-2">
-            <span className="mr-3 hidden items-center gap-2 text-xs text-[#7a807b] sm:flex"><i className="size-2 rounded-full bg-[#4c8b68]" />真实日线已载入</span>
-            <button className="grid size-10 place-items-center rounded-full border border-[#d9d6ca] bg-white text-[#45534b]" aria-label="通知"><BellIcon className="size-4" /></button>
-            <button className="grid size-10 place-items-center rounded-full bg-[#173f2e] text-sm font-semibold text-white" aria-label="用户中心">投</button>
-            <button className="ml-1 grid size-10 place-items-center md:hidden" aria-label="菜单"><MenuIcon /></button>
+            <span className={`mr-3 hidden items-center gap-2 text-xs sm:flex ${isClosedDay ? "text-[#9a7229]" : "text-[#7a807b]"}`}>
+              <i className={`size-2 rounded-full ${isClosedDay ? "bg-[#c99a3a]" : "bg-[#4c8b68]"}`} />
+              {isClosedDay ? `休市中 · 数据更新至 ${latestUpdate.replaceAll("-", "/")}` : "真实日线已载入"}
+            </span>
           </div>
         </div>
       </header>
@@ -69,7 +105,7 @@ export function Dashboard({ commodities, fedRate, marginBalance, economicEvents 
           </div>
           <div className="flex w-full max-w-md items-center gap-3 rounded-xl border border-[#d9d6ca] bg-white px-4 py-3 shadow-[0_8px_30px_rgba(28,45,36,0.04)]">
             <SearchIcon className="size-4 shrink-0 text-[#7f8882]" />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`搜索 ${commodities.length} 个商品或代码`} className="w-full bg-transparent text-sm outline-none placeholder:text-[#9a9f9b]" />
+            <input ref={searchRef} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`搜索 ${commodities.length} 个商品或代码`} className="w-full bg-transparent text-sm outline-none placeholder:text-[#9a9f9b]" />
             <kbd className="rounded border border-[#ddd9ce] bg-[#f5f3ed] px-1.5 py-0.5 text-[10px] text-[#8a8e8b]">⌘ K</kbd>
           </div>
         </section>

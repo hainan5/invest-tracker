@@ -5,7 +5,10 @@ on:
     branches:
       - master
   schedule:
+    # 23:15 UTC = 次日 07:15 北京时间（开盘前更新隔夜国际行情）
     - cron: "15 23 * * *"
+    # 10:15 UTC = 18:15 北京时间（当天 A 股收盘后更新两融余额与国内事件）
+    - cron: "15 10 * * *"
   workflow_dispatch:
 
 permissions:

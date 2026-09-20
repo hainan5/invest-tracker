@@ -15,6 +15,7 @@ function weekdayLabel(date: string) {
 
 export function EconomicEventsCard({ events }: { events: EconomicEventPoint[] }) {
   const [impactFilter, setImpactFilter] = useState<"全部" | "高">("全部");
+  const [showAllOnMobile, setShowAllOnMobile] = useState(false);
 
   const days = useMemo(() => {
     const filtered = impactFilter === "全部" ? events : events.filter((event) => event.impact === "高");
@@ -31,6 +32,34 @@ export function EconomicEventsCard({ events }: { events: EconomicEventPoint[] })
   }, [events, impactFilter]);
 
   const highCount = events.filter((event) => event.impact === "高").length;
+  // 移动端默认只展示重要事件，避免单列长列表刷屏；桌面端（xl 及以上）始终完整展示。
+  // 用两套 DOM + Tailwind 响应式类切换，而不是按视口过滤数据，保证桌面端不受折叠状态影响
+  const collapsedDays = useMemo(
+    () => days
+      .map(([date, dayEvents]): [string, EconomicEventPoint[]] => [date, dayEvents.filter((event) => event.impact === "高")])
+      .filter(([, dayEvents]) => dayEvents.length > 0),
+    [days],
+  );
+  const gridClass = "mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3";
+  const renderDay = ([date, dayEvents]: [string, EconomicEventPoint[]]) => (
+    <div key={date} className="rounded-xl border border-[#e5e2d8] bg-white/60 p-4">
+      <div className="mb-3 flex items-baseline justify-between border-b border-[#e5e2d8] pb-2">
+        <span className="text-sm font-semibold">{date.replaceAll("-", "/")} {weekdayLabel(date)}</span>
+        <span className="text-[11px] text-[#8b908c]">{dayEvents.length} 项</span>
+      </div>
+      <ul className="space-y-3">
+        {dayEvents.map((event, index) => (
+          <li key={`${event.date}-${event.timeBeijing}-${index}`} className="flex items-start gap-2.5">
+            <span className={`mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold ${impactStyles[event.impact].className}`}>{event.impact}</span>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-[#2b332d]">{event.title}</p>
+              <p className="mt-0.5 text-[11px] text-[#8b908c]">北京时间 {event.timeBeijing}{event.eventType && ` · ${event.eventType}`}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
   return (
     <section id="economic-events" className="mb-8 overflow-hidden rounded-2xl border border-[#ddd9ce] bg-[#faf9f5] p-6 lg:p-7">
@@ -51,30 +80,16 @@ export function EconomicEventsCard({ events }: { events: EconomicEventPoint[] })
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {days.map(([date, dayEvents]) => (
-          <div key={date} className="rounded-xl border border-[#e5e2d8] bg-white/60 p-4">
-            <div className="mb-3 flex items-baseline justify-between border-b border-[#e5e2d8] pb-2">
-              <span className="text-sm font-semibold">{date.replaceAll("-", "/")} {weekdayLabel(date)}</span>
-              <span className="text-[11px] text-[#8b908c]">{dayEvents.length} 项</span>
-            </div>
-            <ul className="space-y-3">
-              {dayEvents.map((event, index) => {
-                const impact = impactStyles[event.impact];
-                return (
-                  <li key={`${event.date}-${event.timeBeijing}-${index}`} className="flex items-start gap-2.5">
-                    <span className={`mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold ${impact.className}`}>{event.impact}</span>
-                    <div className="min-w-0">
-                      <p className="text-xs font-medium text-[#2b332d]">{event.title}</p>
-                      <p className="mt-0.5 text-[11px] text-[#8b908c]">北京时间 {event.timeBeijing}{event.eventType && ` · ${event.eventType}`}</p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
-      </div>
+      {!showAllOnMobile && <div className={`${gridClass} xl:hidden`}>{collapsedDays.map(renderDay)}</div>}
+      <div className={`${gridClass} ${showAllOnMobile ? "" : "hidden xl:grid"}`}>{days.map(renderDay)}</div>
+
+      {!showAllOnMobile && impactFilter === "全部" && (
+        <div className="mt-5 xl:hidden">
+          <button onClick={() => setShowAllOnMobile(true)} className="w-full rounded-lg border border-[#ddd9ce] bg-white/70 py-2 text-xs font-medium text-[#5b6b62] transition hover:bg-white">
+            展开全部 {events.length} 项（当前仅显示 {highCount} 项重要事件）
+          </button>
+        </div>
+      )}
 
       <p className="mt-5 text-[11px] text-[#8b908c]">时间均为北京时间；数据来自东方财富「财经日历」（data.eastmoney.com/cjrl），仅收录国内事件，“高”表示对行情可能有明确指引的关键数据或会议（如 LPR 报价、社融、M2 等），仅供参考，不构成任何投资建议</p>
     </section>
