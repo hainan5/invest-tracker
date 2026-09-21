@@ -22,16 +22,3 @@ export type MarginBalancePoint = {
 export type MarginBalance = MarginBalancePoint & {
   history: MarginBalancePoint[];
 };
-
-export type EconomicEventPoint = {
-  date: string;
-  category: "新股申购" | "限售解禁" | "分红除权" | "宏观数据";
-  title: string;
-  detail: string;
-};
-
-export type MorningBriefPoint = {
-  date: string;
-  section: "要闻" | "关注";
-  content: string;
-};
