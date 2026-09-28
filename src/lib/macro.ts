@@ -22,22 +22,3 @@ export type MarginBalancePoint = {
 export type MarginBalance = MarginBalancePoint & {
   history: MarginBalancePoint[];
 };
-
-export type PizzaReading = {
-  name: string;
-  busy: number;
-  typical: number;
-  deviation: number;
-  anomaly: boolean;
-};
-
-export type PentagonPizza = {
-  snapshot: string;
-  avgBusy: number;
-  maxBusy: number;
-  maxDeviation: number;
-  anomalyCount: number;
-  locationCount: number;
-  lateNight: boolean;
-  readings: PizzaReading[];
-};

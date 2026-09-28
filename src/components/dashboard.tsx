@@ -6,8 +6,7 @@ import { MiniChart } from "@/components/mini-chart";
 import { FedRateCard } from "@/components/fed-rate-card";
 import { ChartIcon, SearchIcon, StarIcon } from "@/components/icons";
 import { MarginBalanceCard } from "@/components/margin-balance-card";
-import { PentagonPizzaCard } from "@/components/pentagon-pizza-card";
-import type { FedRateProbability, MarginBalance, PentagonPizza } from "@/lib/macro";
+import type { FedRateProbability, MarginBalance } from "@/lib/macro";
 
 const periods = ["1日", "1周", "1月", "3月", "1年"];
 const periodPoints: Record<string, number> = { "1日": 2, "1周": 6, "1月": 23, "3月": 66, "1年": 370 };
@@ -31,7 +30,7 @@ function storedFavorites(): string[] | null {
   }
 }
 
-export function Dashboard({ commodities, fedRate, marginBalance, pentagonPizza }: { commodities: Commodity[]; fedRate?: FedRateProbability; marginBalance?: MarginBalance; pentagonPizza?: PentagonPizza }) {
+export function Dashboard({ commodities, fedRate, marginBalance }: { commodities: Commodity[]; fedRate?: FedRateProbability; marginBalance?: MarginBalance }) {
   const [selectedId, setSelectedId] = useState("crude-oil");
   const [period, setPeriod] = useState("1月");
   const [query, setQuery] = useState("");
@@ -125,7 +124,6 @@ export function Dashboard({ commodities, fedRate, marginBalance, pentagonPizza }
 
         {fedRate && <FedRateCard data={fedRate} />}
         {marginBalance && <MarginBalanceCard data={marginBalance} />}
-        {pentagonPizza && <PentagonPizzaCard data={pentagonPizza} />}
 
         <section id="market" className="grid gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(340px,0.7fr)]">
           <div className="min-w-0">
