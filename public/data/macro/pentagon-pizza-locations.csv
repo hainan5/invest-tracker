@@ -1,0 +1,19 @@
+snapshot,name,busy,typical,deviation,anomaly
+2026-09-28 10:37,California Pizza Kitchen - Pentagon Centre,61,50,1.1,false
+2026-09-28 10:37,Extreme Pizza - Pentagon City,59,50,0.9,false
+2026-09-28 10:37,&pizza - Pentagon City,58,50,0.8,false
+2026-09-28 10:37,Papa John's - Pentagon City,58,50,0.8,false
+2026-09-28 10:37,Pizza Hut - Crystal City,56,50,0.6,false
+2026-09-28 10:37,Domino's Pizza - Rosslyn,56,50,0.6,false
+2026-09-28 10:37,Domino's Pizza - Crystal City,55,50,0.5,false
+2026-09-28 10:37,Wiseguy Pizza - Pentagon City,52,50,0.2,false
+2026-09-28 10:37,Bozzelli's Italian Deli - Crystal City,52,50,0.2,false
+2026-09-28 10:37,Domino's Pizza - Old Town Alexandria,52,50,0.2,false
+2026-09-28 10:37,Domino's Pizza - Baileys Crossroads,51,50,0.1,false
+2026-09-28 10:37,Domino's Pizza - Shirlington,47,50,-0.3,false
+2026-09-28 10:37,Domino's Pizza - Annandale,47,50,-0.3,false
+2026-09-28 10:37,Domino's Pizza - Pentagon City,46,50,-0.4,false
+2026-09-28 10:37,Matchbox - Pentagon City,45,50,-0.5,false
+2026-09-28 10:37,Pie Five Pizza - Pentagon Centre,38,50,-1.2,false
+2026-09-28 10:37,Crush Pizza & Wine - Pentagon Row,38,50,-1.2,false
+2026-09-28 10:37,Domino's Pizza - Southwest DC,38,50,-1.2,false
