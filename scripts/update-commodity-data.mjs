@@ -53,6 +53,14 @@ function cutoffDate() {
   return cutoff.toISOString().slice(0, 10);
 }
 
+// 与 validateRows 的 freshness 容差保持一致：允许最多 2 天的时区/盘前误差，
+// 超出的未来日期视为数据源脏行（如未成交的占位 K 线），直接丢弃。
+function maxFutureDate() {
+  const limit = new Date();
+  limit.setUTCDate(limit.getUTCDate() + 2);
+  return limit.toISOString().slice(0, 10);
+}
+
 function validateRows(id, rows) {
   if (rows.length < 2) throw new Error(`${id} 日线数据不足`);
   const dates = new Set();
@@ -95,7 +103,8 @@ async function fetchRows(item) {
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const rows = parsePayload(await response.text(), item.provider)
-        .filter((row) => row.date >= cutoffDate()).sort((a, b) => a.date.localeCompare(b.date));
+        .filter((row) => row.date >= cutoffDate() && row.date <= maxFutureDate())
+        .sort((a, b) => a.date.localeCompare(b.date));
       validateRows(item.id, rows);
       return rows;
     } catch (error) {
